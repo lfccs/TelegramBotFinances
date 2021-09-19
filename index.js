@@ -6,7 +6,7 @@ const bot = new telegramBot(TOKEN_BOT_TELEGRAM, {polling: true})
 
 /*bot.on('text', msg=>{
     bot.sendMessage(msg.chat.id, msg.text)
-    msg.re
+    msg.ressssgit 
 })*/
 
 // Matches /photo
