@@ -1,14 +1,33 @@
 require('dotenv').config()
+const {Collection} = require('discord.js')
 const telegramBot = require('node-telegram-bot-api')
 const mongo = require('mongoose')
+const handler = require('./handlers')
 const{TOKEN_BOT_TELEGRAM} = process.env
 const bot = new telegramBot(TOKEN_BOT_TELEGRAM, {polling: true})
+bot.commands = new Collection();
 
-/*bot.on('text', msg=>{
-    bot.sendMessage(msg.chat.id, msg.text)
-    msg.ressssgit 
-})*/
+handler.commandHandler(bot)
 
+bot.on('text', msg=>{
+
+  const args = msg.text.trim().split(/ +/g)
+  const cmd = args.shift().toLocaleLowerCase()
+
+  
+  const command = bot.commands.get(cmd)
+  try {
+    command.run(bot, msg)
+  } catch (e) {
+    
+  }
+})
+
+
+
+
+
+/*
 // Matches /photo
 bot.onText(/\/photo/, function onPhotoText(msg) {
     // From file path
@@ -17,8 +36,6 @@ bot.onText(/\/photo/, function onPhotoText(msg) {
       caption: "I'm a bot!"
     });
   });
-  
-  
   // Matches /audio
   bot.onText(/\/audio/, function onAudioText(msg) {
     // From HTTP request
@@ -26,8 +43,6 @@ bot.onText(/\/photo/, function onPhotoText(msg) {
     const audio = request(url);
     bot.sendAudio(msg.chat.id, audio);
   });
-  
-  
   // Matches /love
   bot.onText(/\/love/, function onLoveText(msg) {
     const opts = {
@@ -41,15 +56,11 @@ bot.onText(/\/photo/, function onPhotoText(msg) {
     };
     bot.sendMessage(msg.chat.id, 'Do you love me?', opts);
   });
-  
-  
   // Matches /echo [whatever]
   bot.onText(/\/echo (.+)/, function onEchoText(msg, match) {
     const resp = match[1];
     bot.sendMessage(msg.chat.id, resp);
   });
-  
-  
   // Matches /editable
   bot.onText(/\/editable/, function onEditableText(msg) {
     const opts = {
@@ -68,8 +79,6 @@ bot.onText(/\/photo/, function onPhotoText(msg) {
     };
     bot.sendMessage(msg.from.id, 'Original Text', opts);
   });
-  
-  
   // Handle callback queries
   bot.on('callback_query', function onCallbackQuery(callbackQuery) {
     const action = callbackQuery.data;
@@ -86,3 +95,6 @@ bot.onText(/\/photo/, function onPhotoText(msg) {
   
     bot.editMessageText(text, opts);
   });
+
+  */
+
