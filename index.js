@@ -1,23 +1,25 @@
 require('dotenv').config()
+require('./connection/database')
 const {Collection} = require('discord.js')
 const telegramBot = require('node-telegram-bot-api')
-const mongo = require('mongoose')
 const handler = require('./handlers')
 const{TOKEN_BOT_TELEGRAM} = process.env
 const bot = new telegramBot(TOKEN_BOT_TELEGRAM, {polling: true})
 bot.commands = new Collection();
+bot.events = new Collection();
+
+
 
 handler.commandHandler(bot)
 
 bot.on('text', msg=>{
-
   const args = msg.text.trim().split(/ +/g)
   const cmd = args.shift().toLocaleLowerCase()
 
   
   const command = bot.commands.get(cmd)
   try {
-    command.run(bot, msg)
+    command.run(bot, msg, args)
   } catch (e) {
     
   }
