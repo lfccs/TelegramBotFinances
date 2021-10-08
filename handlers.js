@@ -15,6 +15,7 @@ module.exports.commandHandler = (bot) => {
     console.log(`commands success`);
 
 }
+
 module.exports.dataHandler = (bot) => {
     const save = require('./save')
     bot.database.set('save', save)
