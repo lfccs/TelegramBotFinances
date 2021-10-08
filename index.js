@@ -28,25 +28,5 @@ bot.on('text', msg => {
   }
 })
 
-bot.onText(/\/kb/, (msg) => {
-
-  let kb = []
-  
-  for([key] of bot.commands){
-    if (key!= '') {
-      kb.push([`${key}`])
-    }
-  }
-
-  const opts = {
-    reply_to_message_id: msg.message_id,
-    reply_markup: JSON.stringify({
-      keyboard: kb
-    })
-
-  };
-  bot.sendMessage(msg.chat.id, 'keyboard already', opts)
-})
-
 
 
