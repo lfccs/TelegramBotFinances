@@ -10,9 +10,6 @@ bot.calculates = require('./calculate/core')
 
 handler.commandHandler(bot)
 
-return
-
-
 bot.on('text', msg => {
 
   const args = msg.text.trim().split(/ +/g)
